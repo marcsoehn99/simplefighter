@@ -29,12 +29,18 @@ func _update_selection() -> void:
 	if p1_frames and p1_frames.has_animation("idle"):
 		p1_sprite.sprite_frames = p1_frames
 		p1_sprite.play("idle")
+		var p1_h = SpriteLoader.get_frame_height(FIGHTERS[p1_index])
+		var p1_scale = 3.0 * (92.0 / p1_h)
+		p1_sprite.scale = Vector2(p1_scale, p1_scale)
 
 	var p2_frames = SpriteLoader.load_fighter_frames(FIGHTERS[p2_index])
 	if p2_frames and p2_frames.has_animation("idle"):
 		p2_sprite.sprite_frames = p2_frames
 		p2_sprite.play("idle")
 		p2_sprite.flip_h = true
+		var p2_h = SpriteLoader.get_frame_height(FIGHTERS[p2_index])
+		var p2_scale = 3.0 * (92.0 / p2_h)
+		p2_sprite.scale = Vector2(p2_scale, p2_scale)
 
 	p1_ready_label.text = "READY!" if p1_ready else ""
 	p2_ready_label.text = "READY!" if p2_ready else ""

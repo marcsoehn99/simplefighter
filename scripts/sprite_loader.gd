@@ -19,6 +19,19 @@ const ANIMS := {
 }
 
 var _cache: Dictionary = {}
+var _frame_heights: Dictionary = {}
+
+func get_frame_height(fighter_id: String) -> int:
+	if fighter_id in _frame_heights:
+		return _frame_heights[fighter_id]
+	# Detect from idle.png
+	var path = "res://assets/fighters/" + fighter_id + "/sheets/idle.png"
+	if ResourceLoader.exists(path):
+		var tex: Texture2D = load(path)
+		if tex:
+			_frame_heights[fighter_id] = tex.get_height()
+			return tex.get_height()
+	return 92
 
 func load_fighter_frames(fighter_id: String) -> SpriteFrames:
 	if fighter_id in _cache:

@@ -46,6 +46,13 @@ func _ready() -> void:
 
 	sprite.sprite_frames = SpriteLoader.load_fighter_frames(fighter_id)
 
+	# Normalize sprite scale so all fighters appear the same size
+	# fighter_01 has 92px frames, fighter_02/03 have 132px frames
+	# Base scale 2.2 was designed for 92px, so scale down proportionally
+	var frame_h = SpriteLoader.get_frame_height(fighter_id)
+	var target_scale = 2.2 * (92.0 / frame_h)
+	sprite.scale = Vector2(target_scale, target_scale)
+
 	# Initialize state machine now that sprite is ready
 	state_machine.initialize(self)
 

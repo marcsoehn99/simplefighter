@@ -83,5 +83,6 @@ func _restore_time_scale() -> void:
 	Engine.time_scale = 1.0
 
 func hitlag(frames: int = 3) -> void:
-	Engine.time_scale = 0.0
-	get_tree().create_timer(frames / 60.0).timeout.connect(_restore_time_scale)
+	Engine.time_scale = 0.05
+	var timer = get_tree().create_timer(frames / 60.0, true, false, true)
+	timer.timeout.connect(_restore_time_scale)
