@@ -15,13 +15,13 @@
 [ext_resource type="Script" path="res://scripts/combat/input_buffer.gd" id="13_inputbuf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(50, 150)
+size = Vector2(60, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
-size = Vector2(60, 160)
+size = Vector2(70, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(50, 40)
+size = Vector2(60, 50)
 
 [node name="Fighter" type="CharacterBody2D"]
 collision_layer = 1
@@ -29,7 +29,7 @@ collision_mask = 1
 script = ExtResource("1_fighter")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -75)
+position = Vector2(0, -100)
 shape = SubResource("RectangleShape2D_body")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -44,7 +44,7 @@ monitoring = false
 script = ExtResource("3_hurtbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -80)
+position = Vector2(0, -100)
 shape = SubResource("RectangleShape2D_hurtbox")
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -55,16 +55,16 @@ monitorable = false
 script = ExtResource("2_hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(60, -70)
+position = Vector2(80, -90)
 shape = SubResource("RectangleShape2D_hitbox")
 disabled = true
 
 [node name="Visual" type="ColorRect" parent="Hitbox"]
 visible = false
-offset_left = 35.0
-offset_top = -90.0
-offset_right = 85.0
-offset_bottom = -50.0
+offset_left = 50.0
+offset_top = -115.0
+offset_right = 110.0
+offset_bottom = -65.0
 color = Color(1, 0, 0, 0.4)
 
 [node name="InputBuffer" type="Node" parent="."]

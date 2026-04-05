@@ -16,5 +16,7 @@ func state_physics_process(delta: float) -> void:
 
 	if fighter.is_on_floor() and fighter.velocity.y >= 0:
 		fighter.velocity = Vector2.ZERO
-		# Rotate sprite to lay on ground
-		fighter.sprite.rotation_degrees = 90
+		# Lay character flat on ground — fall backward away from opponent
+		fighter.sprite.rotation_degrees = 90 if fighter.facing_right else -90
+		# Sprite is near floor level; small offset so body rests on surface
+		fighter.sprite.position = Vector2(0, -30)

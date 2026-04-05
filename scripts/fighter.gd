@@ -20,6 +20,7 @@ var hits_landed_this_attack: Array = []
 var is_knocked_out: bool = false
 var input_prefix: String = "p1_"
 var visual_color: Color = Color.CORNFLOWER_BLUE
+var _default_sprite_pos: Vector2
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Hitbox = $Hitbox
@@ -47,11 +48,13 @@ func _ready() -> void:
 	sprite.sprite_frames = SpriteLoader.load_fighter_frames(fighter_id)
 
 	# Normalize sprite scale so all fighters appear the same size
-	# fighter_01 has 92px frames, fighter_02/03 have 132px frames
-	# Base scale 2.2 was designed for 92px, so scale down proportionally
 	var frame_h = SpriteLoader.get_frame_height(fighter_id)
-	var target_scale = 2.2 * (92.0 / frame_h)
+	var target_scale = 3.0 * (92.0 / frame_h)
 	sprite.scale = Vector2(target_scale, target_scale)
+	# Position sprite so bottom edge aligns with fighter origin (feet on floor)
+	var visual_height = frame_h * target_scale
+	sprite.position = Vector2(0, -(visual_height / 2.0))
+	_default_sprite_pos = sprite.position
 
 	# Initialize state machine now that sprite is ready
 	state_machine.initialize(self)
@@ -146,6 +149,7 @@ func reset_fighter(pos: Vector2) -> void:
 	hits_landed_this_attack.clear()
 	# Reset sprite visuals from KO/stun states
 	sprite.rotation_degrees = 0
+	sprite.position = _default_sprite_pos
 	sprite.modulate = Color.WHITE
 	health_changed.emit(health)
 	state_machine.transition_to("idle", {})
@@ -173,6 +177,6 @@ func spawn_projectile(spd: float) -> void:
 	var proj_scene = load("res://scenes/projectile.tscn")
 	var proj = proj_scene.instantiate()
 	var dir = 1.0 if facing_right else -1.0
-	proj.global_position = global_position + Vector2(60 * dir, -60)
+	proj.global_position = global_position + Vector2(80 * dir, -80)
 	proj.setup(self, dir, spd, player_id)
 	get_parent().add_child(proj)

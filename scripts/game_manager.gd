@@ -9,8 +9,8 @@ var p2_wins: int = 0
 var round_timer: float = 99.0
 var phase_timer: float = 0.0
 
-const P1_START_POS := Vector2(350, 610)
-const P2_START_POS := Vector2(930, 610)
+const P1_START_POS := Vector2(350, 640)
+const P2_START_POS := Vector2(930, 640)
 
 @onready var fighter1: CharacterBody2D = $Fighter1
 @onready var fighter2: CharacterBody2D = $Fighter2
