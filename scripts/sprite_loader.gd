@@ -1,7 +1,5 @@
 extends Node
 
-# Animation definitions: name -> {file, fps, loop}
-# Frame count is auto-detected from image width / FRAME_HEIGHT
 const FRAME_HEIGHT := 92
 
 const ANIMS := {
@@ -20,14 +18,18 @@ const ANIMS := {
 	"ko":           {"file": "ko.png",           "fps": 8.0,  "loop": false},
 }
 
-var p1_sprite_frames: SpriteFrames
-var p2_sprite_frames: SpriteFrames
+var _cache: Dictionary = {}
 
-func _ready() -> void:
-	p1_sprite_frames = _load_sprite_frames("res://assets/p1/sheets/")
-	p2_sprite_frames = _load_sprite_frames("res://assets/p2/sheets/")
+func load_fighter_frames(fighter_id: String) -> SpriteFrames:
+	if fighter_id in _cache:
+		return _cache[fighter_id]
 
-func _load_sprite_frames(base_path: String) -> SpriteFrames:
+	var base_path = "res://assets/fighters/" + fighter_id + "/sheets/"
+	var sf = _build_sprite_frames(base_path)
+	_cache[fighter_id] = sf
+	return sf
+
+func _build_sprite_frames(base_path: String) -> SpriteFrames:
 	var sf = SpriteFrames.new()
 	if sf.has_animation("default"):
 		sf.remove_animation("default")
@@ -38,15 +40,18 @@ func _load_sprite_frames(base_path: String) -> SpriteFrames:
 		sf.set_animation_speed(anim_name, info["fps"])
 		sf.set_animation_loop(anim_name, info["loop"])
 
-		var texture: Texture2D = load(base_path + info["file"])
+		var full_path = base_path + info["file"]
+		if not ResourceLoader.exists(full_path):
+			push_warning("Could not load: " + full_path)
+			continue
+
+		var texture: Texture2D = load(full_path)
 		if texture == null:
-			push_warning("Could not load: " + base_path + info["file"])
 			continue
 
 		var frame_w: int = FRAME_HEIGHT
 		var frame_h: int = texture.get_height()
-		# Auto-detect frame count from width
-		var frame_count: int = maxi(1, texture.get_width() / frame_w)
+		var frame_count: int = maxi(1, int(texture.get_width() / frame_w))
 
 		for i in frame_count:
 			var atlas = AtlasTexture.new()

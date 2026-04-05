@@ -10,6 +10,7 @@ const MAX_HEALTH: int = 100
 
 @export var player_id: int = 1
 @export var is_ai: bool = false
+@export var fighter_id: String = "fighter_01"
 
 var health: int = MAX_HEALTH
 var facing_right: bool = true
@@ -30,17 +31,20 @@ var ai_controller = null
 func _ready() -> void:
 	input_prefix = "p1_" if player_id == 1 else "p2_"
 
-	# Assign sprite frames from autoload
+	# Load fighter sprites from GameSettings
 	if player_id == 1:
-		sprite.sprite_frames = SpriteLoader.p1_sprite_frames
+		fighter_id = GameSettings.p1_fighter
 		hurtbox.collision_layer = 1 << 1
 		hitbox.collision_layer = 1 << 3
 		hitbox.collision_mask = 1 << 2
 	else:
-		sprite.sprite_frames = SpriteLoader.p2_sprite_frames
+		fighter_id = GameSettings.p2_fighter
+		is_ai = GameSettings.p2_is_ai
 		hurtbox.collision_layer = 1 << 2
 		hitbox.collision_layer = 1 << 4
 		hitbox.collision_mask = 1 << 1
+
+	sprite.sprite_frames = SpriteLoader.load_fighter_frames(fighter_id)
 
 	# Initialize state machine now that sprite is ready
 	state_machine.initialize(self)
