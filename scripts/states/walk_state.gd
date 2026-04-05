@@ -11,6 +11,10 @@ func state_physics_process(delta: float) -> void:
 		fighter.move_and_slide()
 		return
 
+	if fighter.check_super_input():
+		fighter.use_super()
+		return
+
 	var special = fighter.check_special_input()
 	if special != "":
 		state_machine.transition_to("attack", {"attack_name": special})

@@ -1,7 +1,15 @@
 extends Control
 
-const FIGHTERS := ["fighter_01", "fighter_02", "fighter_03"]
-const FIGHTER_NAMES := {"fighter_01": "BLITZ", "fighter_02": "RYUKEN", "fighter_03": "VENOM"}
+const FIGHTERS := ["fighter_01", "fighter_02", "fighter_03", "fighter_04", "fighter_05", "fighter_06", "fighter_07"]
+const FIGHTER_NAMES := {
+	"fighter_01": "BLITZ",
+	"fighter_02": "RYUKEN",
+	"fighter_03": "VENOM",
+	"fighter_04": "TETSUO",
+	"fighter_05": "TITAN",
+	"fighter_06": "KENSHI",
+	"fighter_07": "NARUTO",
+}
 
 var p1_index: int = 0
 var p2_index: int = 0

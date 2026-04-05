@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Body Splash"
+damage = 18
+chip_damage = 4
+knockback = Vector2(200, -50)
+stun_frames = 22
+startup_frames = 6
+active_frames = 10
+recovery_frames = 16
+hitbox_offset = Vector2(30, -50)
+hitbox_size = Vector2(60, 60)
+is_special = true
+is_projectile = false
+projectile_speed = 0.0

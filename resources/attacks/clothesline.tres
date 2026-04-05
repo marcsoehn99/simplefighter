@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Clothesline"
+damage = 16
+chip_damage = 3
+knockback = Vector2(300, -80)
+stun_frames = 20
+startup_frames = 5
+active_frames = 8
+recovery_frames = 14
+hitbox_offset = Vector2(50, -70)
+hitbox_size = Vector2(70, 40)
+is_special = true
+is_projectile = false
+projectile_speed = 0.0

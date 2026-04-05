@@ -16,6 +16,20 @@ const ANIMS := {
 	"crouch_hk":    {"file": "crouch_hk.png",    "fps": 12.0, "loop": false},
 	"hit_stun":     {"file": "hit_stun.png",     "fps": 10.0, "loop": false},
 	"ko":           {"file": "ko.png",           "fps": 8.0,  "loop": false},
+	"tornado_kick":    {"file": "tornado_kick.png",    "fps": 12.0, "loop": false},
+	"sumo_charge":     {"file": "sumo_charge.png",     "fps": 12.0, "loop": false},
+	"palm_strike":     {"file": "palm_strike.png",     "fps": 15.0, "loop": false},
+	"ground_stomp":    {"file": "ground_stomp.png",    "fps": 12.0, "loop": false},
+	"clothesline":     {"file": "clothesline.png",     "fps": 12.0, "loop": false},
+	"body_splash":     {"file": "body_splash.png",     "fps": 12.0, "loop": false},
+	"gorilla_press":   {"file": "gorilla_press.png",   "fps": 12.0, "loop": false},
+	"sword_wave":      {"file": "sword_wave.png",      "fps": 12.0, "loop": false},
+	"rising_slash":    {"file": "rising_slash.png",     "fps": 15.0, "loop": false},
+	"whirlwind_slash": {"file": "whirlwind_slash.png", "fps": 12.0, "loop": false},
+	"rasengan":        {"file": "rasengan.png",        "fps": 12.0, "loop": false},
+	"shadow_clone":    {"file": "shadow_clone.png",    "fps": 12.0, "loop": false},
+	"rasenshuriken":   {"file": "rasenshuriken.png",   "fps": 12.0, "loop": false},
+	"super_attack":    {"file": "super_attack.png",    "fps": 12.0, "loop": false},
 }
 
 var _cache: Dictionary = {}

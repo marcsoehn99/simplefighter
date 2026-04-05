@@ -6,15 +6,27 @@ extends CanvasLayer
 @onready var splash_label: Label = $SplashLabel
 @onready var p1_rounds: HBoxContainer = $TopBar/P1Rounds
 @onready var p2_rounds: HBoxContainer = $TopBar/P2Rounds
+@onready var p1_super_bar: ProgressBar = $SuperBar/P1SuperBar
+@onready var p2_super_bar: ProgressBar = $SuperBar/P2SuperBar
 
 func _ready() -> void:
 	splash_label.visible = false
+	p1_super_bar.value = 0
+	p2_super_bar.value = 0
 
 func update_health(player: int, health: int) -> void:
 	if player == 1:
 		p1_health_bar.value = health
 	else:
 		p2_health_bar.value = health
+
+func update_super(player: int, meter: int) -> void:
+	if player == 1:
+		p1_super_bar.value = meter
+		p1_super_bar.modulate = Color(1, 1, 0.3) if meter >= 100 else Color.WHITE
+	else:
+		p2_super_bar.value = meter
+		p2_super_bar.modulate = Color(1, 1, 0.3) if meter >= 100 else Color.WHITE
 
 func update_timer(time: int) -> void:
 	timer_label.text = str(clampi(time, 0, 99))

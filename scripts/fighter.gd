@@ -2,17 +2,20 @@ extends CharacterBody2D
 
 signal health_changed(new_health: int)
 signal fighter_ko(fighter: CharacterBody2D)
+signal meter_changed(new_meter: int)
 
 const GRAVITY: float = 1800.0
 const MOVE_SPEED: float = 300.0
 const JUMP_VELOCITY: float = -700.0
 const MAX_HEALTH: int = 100
+const MAX_SUPER: int = 100
 
 @export var player_id: int = 1
 @export var is_ai: bool = false
 @export var fighter_id: String = "fighter_01"
 
 var health: int = MAX_HEALTH
+var super_meter: int = 0
 var facing_right: bool = true
 var opponent: CharacterBody2D
 var can_act: bool = true
@@ -21,6 +24,45 @@ var is_knocked_out: bool = false
 var input_prefix: String = "p1_"
 var visual_color: Color = Color.CORNFLOWER_BLUE
 var _default_sprite_pos: Vector2
+
+# Per-fighter special move definitions: motion + buttons → attack name
+const FIGHTER_SPECIALS := {
+	"fighter_01": [
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "dragon_punch"},
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "fireball"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "tornado_kick"},
+	],
+	"fighter_02": [
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "dragon_punch"},
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "fireball"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "tornado_kick"},
+	],
+	"fighter_03": [
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "dragon_punch"},
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "fireball"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "tornado_kick"},
+	],
+	"fighter_04": [  # TETSUO (Sumo)
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "sumo_charge"},
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "palm_strike"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "ground_stomp"},
+	],
+	"fighter_05": [  # TITAN (Wrestler)
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "clothesline"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "body_splash"},
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "gorilla_press"},
+	],
+	"fighter_06": [  # KENSHI (Samurai)
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "sword_wave"},
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "rising_slash"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "whirlwind_slash"},
+	],
+	"fighter_07": [  # NARUTO
+		{"motion": "qcf", "buttons": ["lp", "hp"], "attack": "rasengan"},
+		{"motion": "qcf", "buttons": ["lk", "hk"], "attack": "shadow_clone"},
+		{"motion": "dp", "buttons": ["lp", "hp"], "attack": "rasenshuriken"},
+	],
+}
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Hitbox = $Hitbox
@@ -117,6 +159,7 @@ func take_damage(amount: int, knockback: Vector2, stun: int, chip: int = 0) -> v
 
 	if is_blocking():
 		health -= chip
+		add_meter(chip * 2)  # Defender gains meter on block
 		if health <= 0:
 			health = 0
 			health_changed.emit(health)
@@ -126,6 +169,7 @@ func take_damage(amount: int, knockback: Vector2, stun: int, chip: int = 0) -> v
 		state_machine.transition_to("blockstun", {"stun_frames": maxi(stun / 2, 6), "knockback": knockback * 0.3})
 	else:
 		health -= amount
+		add_meter(int(amount * 1.5))  # Defender gains more meter on hit
 		if health <= 0:
 			health = 0
 			health_changed.emit(health)
@@ -143,6 +187,7 @@ func _do_ko() -> void:
 func reset_fighter(pos: Vector2) -> void:
 	global_position = pos
 	health = MAX_HEALTH
+	super_meter = 0
 	is_knocked_out = false
 	can_act = true
 	velocity = Vector2.ZERO
@@ -152,6 +197,7 @@ func reset_fighter(pos: Vector2) -> void:
 	sprite.position = _default_sprite_pos
 	sprite.modulate = Color.WHITE
 	health_changed.emit(health)
+	meter_changed.emit(super_meter)
 	state_machine.transition_to("idle", {})
 
 func apply_gravity(delta: float) -> void:
@@ -159,19 +205,50 @@ func apply_gravity(delta: float) -> void:
 		velocity.y += GRAVITY * delta
 
 func get_attack_data(attack_name: String) -> AttackData:
+	# Check fighter-specific override first
+	var fighter_path = "res://resources/attacks/" + fighter_id + "/" + attack_name + ".tres"
+	if ResourceLoader.exists(fighter_path):
+		return load(fighter_path) as AttackData
 	var path = "res://resources/attacks/" + attack_name + ".tres"
 	if ResourceLoader.exists(path):
 		return load(path) as AttackData
 	return null
 
 func check_special_input() -> String:
-	var punch_pressed = is_input_just_pressed("lp") or is_input_just_pressed("hp")
-	if punch_pressed:
-		if input_buffer.check_dp():
-			return "dragon_punch"
-		if input_buffer.check_qcf():
-			return "fireball"
+	var specials = FIGHTER_SPECIALS.get(fighter_id, [])
+	for spec in specials:
+		var button_pressed = false
+		for btn in spec["buttons"]:
+			if is_input_just_pressed(btn):
+				button_pressed = true
+				break
+		if not button_pressed:
+			continue
+		var motion_ok = false
+		match spec["motion"]:
+			"qcf":
+				motion_ok = input_buffer.check_qcf()
+			"dp":
+				motion_ok = input_buffer.check_dp()
+		if motion_ok:
+			return spec["attack"]
 	return ""
+
+func check_super_input() -> bool:
+	return super_meter >= MAX_SUPER and is_input_just_pressed("super")
+
+func use_super() -> void:
+	super_meter = 0
+	meter_changed.emit(super_meter)
+	AudioManager.play("energy_charge")
+	VFXManager.screen_flash(Color(1, 1, 0.5, 0.6), 0.15)
+	state_machine.transition_to("attack", {"attack_name": "super_attack"})
+
+func add_meter(amount: int) -> void:
+	if is_knocked_out:
+		return
+	super_meter = mini(super_meter + amount, MAX_SUPER)
+	meter_changed.emit(super_meter)
 
 func spawn_projectile(spd: float) -> void:
 	var proj_scene = load("res://scenes/projectile.tscn")

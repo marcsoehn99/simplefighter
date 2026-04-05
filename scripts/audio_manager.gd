@@ -60,7 +60,17 @@ func play_attack_sound(attack_name: String) -> void:
 			play("kick_light")
 		"stand_hk", "crouch_hk", "jump_hk":
 			play("kick_heavy")
-		"fireball":
+		"fireball", "sword_wave", "rasenshuriken":
 			play("fireball")
-		"dragon_punch":
+		"dragon_punch", "rising_slash", "gorilla_press", "palm_strike":
 			play("dragon_punch")
+		"tornado_kick", "whirlwind_slash":
+			play("kick_heavy")
+		"sumo_charge", "clothesline", "shadow_clone":
+			play("heavy_impact")
+		"ground_stomp", "body_splash":
+			play("heavy_impact")
+		"rasengan":
+			play("energy_charge")
+		"super_attack":
+			play("heavy_impact")

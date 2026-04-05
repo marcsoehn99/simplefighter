@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Ground Stomp"
+damage = 12
+chip_damage = 3
+knockback = Vector2(200, -200)
+stun_frames = 26
+startup_frames = 8
+active_frames = 6
+recovery_frames = 16
+hitbox_offset = Vector2(0, -30)
+hitbox_size = Vector2(120, 30)
+is_special = true
+is_projectile = false
+projectile_speed = 0.0

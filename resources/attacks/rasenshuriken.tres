@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Rasenshuriken"
+damage = 16
+chip_damage = 4
+knockback = Vector2(280, -100)
+stun_frames = 22
+startup_frames = 10
+active_frames = 3
+recovery_frames = 16
+hitbox_offset = Vector2(60, -60)
+hitbox_size = Vector2(30, 20)
+is_special = true
+is_projectile = true
+projectile_speed = 350.0

@@ -34,6 +34,8 @@ func _ready() -> void:
 	fighter2.fighter_ko.connect(_on_fighter_ko)
 	fighter1.health_changed.connect(func(h): hud.update_health(1, h))
 	fighter2.health_changed.connect(func(h): hud.update_health(2, h))
+	fighter1.meter_changed.connect(func(m): hud.update_super(1, m))
+	fighter2.meter_changed.connect(func(m): hud.update_super(2, m))
 	_start_round()
 
 func _start_round() -> void:
