@@ -5,6 +5,9 @@ func enter(_msg: Dictionary) -> void:
 	AudioManager.play("ko")
 	fighter.sprite.modulate = Color(0.5, 0.2, 0.2, 1)
 	fighter.play_anim("ko")
+	VFXManager.screen_flash(Color.WHITE, 0.1)
+	VFXManager.screen_shake(10.0, 0.4)
+	VFXManager.slowmo(0.3, 0.5)
 
 func state_physics_process(delta: float) -> void:
 	fighter.apply_gravity(delta)

@@ -19,4 +19,7 @@ position = Vector2(930, 610)
 player_id = 2
 is_ai = true
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
 [node name="HUD" parent="." instance=ExtResource("4_hud")]

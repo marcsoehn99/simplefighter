@@ -18,6 +18,20 @@ const SOUND_FILES := {
 	"victory": "res://assets/sounds/victory.mp3",
 	"projectile_hit": "res://assets/sounds/projectile_hit.mp3",
 	"menu_select": "res://assets/sounds/menu_select.mp3",
+	"heavy_impact": "res://assets/sounds/heavy_impact.mp3",
+	"energy_charge": "res://assets/sounds/energy_charge.mp3",
+	"dp_whoosh": "res://assets/sounds/dp_whoosh.mp3",
+	"announce_round_1": "res://assets/sounds/announcer/round_1.mp3",
+	"announce_round_2": "res://assets/sounds/announcer/round_2.mp3",
+	"announce_round_3": "res://assets/sounds/announcer/round_3.mp3",
+	"announce_fight": "res://assets/sounds/announcer/fight.mp3",
+	"announce_ko": "res://assets/sounds/announcer/ko.mp3",
+	"announce_p1_wins": "res://assets/sounds/announcer/p1_wins.mp3",
+	"announce_p2_wins": "res://assets/sounds/announcer/p2_wins.mp3",
+	"announce_perfect": "res://assets/sounds/announcer/perfect.mp3",
+	"announce_select_fighter": "res://assets/sounds/announcer/select_fighter.mp3",
+	"announce_choose_stage": "res://assets/sounds/announcer/choose_stage.mp3",
+	"announce_time_over": "res://assets/sounds/announcer/time_over.mp3",
 }
 
 func _ready() -> void:

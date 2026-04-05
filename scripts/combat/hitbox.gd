@@ -47,3 +47,14 @@ func _on_area_entered(area: Area2D) -> void:
 			if not owner_fighter.facing_right:
 				kb.x = -kb.x
 			target.take_damage(attack_data.damage, kb, attack_data.stun_frames, attack_data.chip_damage)
+
+			# VFX
+			var hit_pos = (owner_fighter.global_position + target.global_position) / 2.0
+			hit_pos.y -= 60
+			if target.is_blocking():
+				VFXManager.spawn_hit_spark(hit_pos, "block")
+			elif attack_data.damage >= 10:
+				VFXManager.spawn_hit_spark(hit_pos, "heavy")
+				VFXManager.hitlag(3)
+			else:
+				VFXManager.spawn_hit_spark(hit_pos, "light")

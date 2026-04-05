@@ -22,6 +22,23 @@ func _ready() -> void:
 	visual.color = Color(0.2, 0.6, 1.0, 0.9)
 	add_child(visual)
 
+	# Particle trail
+	var trail = GPUParticles2D.new()
+	var mat = ParticleProcessMaterial.new()
+	mat.direction = Vector3(-direction, 0, 0)
+	mat.spread = 15.0
+	mat.initial_velocity_min = 20.0
+	mat.initial_velocity_max = 40.0
+	mat.gravity = Vector3.ZERO
+	mat.scale_min = 1.5
+	mat.scale_max = 3.0
+	mat.color = Color(0.2, 0.6, 1.0, 0.7)
+	trail.process_material = mat
+	trail.amount = 8
+	trail.lifetime = 0.3
+	trail.emitting = true
+	add_child(trail)
+
 	area_entered.connect(_on_area_entered)
 
 func setup(fighter: CharacterBody2D, dir: float, spd: float, player_id: int) -> void:
@@ -51,4 +68,5 @@ func _on_area_entered(area: Area2D) -> void:
 				kb.x = -kb.x
 			target.take_damage(damage, kb, stun_frames, chip_damage)
 			AudioManager.play("projectile_hit")
+			VFXManager.spawn_hit_spark(global_position, "heavy")
 			queue_free()
