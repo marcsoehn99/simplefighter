@@ -1,0 +1,17 @@
+extends FighterState
+
+func enter(_msg: Dictionary) -> void:
+	fighter.velocity = Vector2(-200 if fighter.facing_right else 200, -400)
+	AudioManager.play("ko")
+	fighter.sprite.modulate = Color(0.5, 0.2, 0.2, 1)
+	fighter.play_anim("ko")
+
+func state_physics_process(delta: float) -> void:
+	fighter.apply_gravity(delta)
+	fighter.velocity.x = move_toward(fighter.velocity.x, 0, 200 * delta)
+	fighter.move_and_slide()
+
+	if fighter.is_on_floor() and fighter.velocity.y >= 0:
+		fighter.velocity = Vector2.ZERO
+		# Rotate sprite to lay on ground
+		fighter.sprite.rotation_degrees = 90

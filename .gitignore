@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# PixelLab downloads (raw frames, can be re-downloaded)
+assets/p1/pixellab/
+assets/p2/pixellab/
+
+# Old hand-drawn sprites (replaced by PixelLab)
+assets/p1/*.gif
+
+# macOS
+.DS_Store

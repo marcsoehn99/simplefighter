@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "jump_hp"
+damage = 13
+chip_damage = 2
+knockback = Vector2(200, 50)
+stun_frames = 16
+startup_frames = 5
+active_frames = 5
+recovery_frames = 8
+hitbox_offset = Vector2(35, -40)
+hitbox_size = Vector2(45, 40)
+is_special = false
+is_projectile = false
+projectile_speed = 0.0

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "crouch_lp"
+damage = 4
+chip_damage = 1
+knockback = Vector2(120, -30)
+stun_frames = 8
+startup_frames = 3
+active_frames = 3
+recovery_frames = 5
+hitbox_offset = Vector2(45, -40)
+hitbox_size = Vector2(35, 25)
+is_special = false
+is_projectile = false
+projectile_speed = 0.0

@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://fighter001"]
+
+[ext_resource type="Script" path="res://scripts/fighter.gd" id="1_fighter"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="2_hitbox"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hurtbox"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_sm"]
+[ext_resource type="Script" path="res://scripts/states/idle_state.gd" id="5_idle"]
+[ext_resource type="Script" path="res://scripts/states/walk_state.gd" id="6_walk"]
+[ext_resource type="Script" path="res://scripts/states/jump_state.gd" id="7_jump"]
+[ext_resource type="Script" path="res://scripts/states/crouch_state.gd" id="8_crouch"]
+[ext_resource type="Script" path="res://scripts/states/attack_state.gd" id="9_attack"]
+[ext_resource type="Script" path="res://scripts/states/hit_stun_state.gd" id="10_hitstun"]
+[ext_resource type="Script" path="res://scripts/states/block_stun_state.gd" id="11_blockstun"]
+[ext_resource type="Script" path="res://scripts/states/ko_state.gd" id="12_ko"]
+[ext_resource type="Script" path="res://scripts/combat/input_buffer.gd" id="13_inputbuf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(50, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(60, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(50, 40)
+
+[node name="Fighter" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_fighter")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -75)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -92)
+scale = Vector2(2.2, 2.2)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitorable = true
+monitoring = false
+script = ExtResource("3_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -80)
+shape = SubResource("RectangleShape2D_hurtbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("2_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(60, -70)
+shape = SubResource("RectangleShape2D_hitbox")
+disabled = true
+
+[node name="Visual" type="ColorRect" parent="Hitbox"]
+visible = false
+offset_left = 35.0
+offset_top = -90.0
+offset_right = 85.0
+offset_bottom = -50.0
+color = Color(1, 0, 0, 0.4)
+
+[node name="InputBuffer" type="Node" parent="."]
+script = ExtResource("13_inputbuf")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_sm")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_idle")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("6_walk")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("7_jump")
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("8_crouch")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("9_attack")
+
+[node name="HitStun" type="Node" parent="StateMachine"]
+script = ExtResource("10_hitstun")
+
+[node name="BlockStun" type="Node" parent="StateMachine"]
+script = ExtResource("11_blockstun")
+
+[node name="KO" type="Node" parent="StateMachine"]
+script = ExtResource("12_ko")
