@@ -49,8 +49,8 @@ func _build_sprite_frames(base_path: String) -> SpriteFrames:
 		if texture == null:
 			continue
 
-		var frame_w: int = FRAME_HEIGHT
 		var frame_h: int = texture.get_height()
+		var frame_w: int = frame_h  # Square frames (auto-detect from height)
 		var frame_count: int = maxi(1, int(texture.get_width() / frame_w))
 
 		for i in frame_count:
