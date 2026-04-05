@@ -51,11 +51,11 @@ text = "FIGHT!"
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=1319976806]
 layout_mode = 2
 text = "OPTIONS"
 
-[node name="Spacer3" type="Control" parent="VBoxContainer"]
+[node name="Spacer3" type="Control" parent="VBoxContainer" unique_id=901072381]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
