@@ -1,0 +1,130 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/options.gd" id="1_options"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_options")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.08, 0.15, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="SFXRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="VBoxContainer/SFXRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "SFX VOLUME"
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer/SFXRow"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+min_value = 0.0
+max_value = 100.0
+value = 100.0
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="RoundsRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="RoundsLabel" type="Label" parent="VBoxContainer/RoundsRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "ROUNDS TO WIN"
+
+[node name="RoundsLeft" type="Button" parent="VBoxContainer/RoundsRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "<"
+
+[node name="RoundsValue" type="Label" parent="VBoxContainer/RoundsRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "2"
+horizontal_alignment = 1
+
+[node name="RoundsRight" type="Button" parent="VBoxContainer/RoundsRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = ">"
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="TimerRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer/TimerRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "ROUND TIMER"
+
+[node name="TimerLeft" type="Button" parent="VBoxContainer/TimerRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "<"
+
+[node name="TimerValue" type="Label" parent="VBoxContainer/TimerRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "99"
+horizontal_alignment = 1
+
+[node name="TimerRight" type="Button" parent="VBoxContainer/TimerRow"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = ">"
+
+[node name="Spacer4" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+
+[connection signal="value_changed" from="VBoxContainer/SFXRow/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/RoundsRow/RoundsLeft" to="." method="_on_rounds_left_pressed"]
+[connection signal="pressed" from="VBoxContainer/RoundsRow/RoundsRight" to="." method="_on_rounds_right_pressed"]
+[connection signal="pressed" from="VBoxContainer/TimerRow/TimerLeft" to="." method="_on_timer_left_pressed"]
+[connection signal="pressed" from="VBoxContainer/TimerRow/TimerRight" to="." method="_on_timer_right_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_pressed"]

@@ -1,0 +1,126 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/character_select.gd" id="1_charsel"]
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_charsel")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.08, 0.15, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "SELECT YOUR FIGHTER"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P1Panel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="P1Label" type="Label" parent="HBoxContainer/P1Panel"]
+layout_mode = 2
+text = "PLAYER 1"
+horizontal_alignment = 1
+
+[node name="P1PreviewCenter" type="CenterContainer" parent="HBoxContainer/P1Panel"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+
+[node name="P1Preview" type="AnimatedSprite2D" parent="HBoxContainer/P1Panel/P1PreviewCenter"]
+scale = Vector2(3, 3)
+
+[node name="P1Name" type="Label" parent="HBoxContainer/P1Panel"]
+layout_mode = 2
+text = "BLITZ"
+horizontal_alignment = 1
+
+[node name="P1Ready" type="Label" parent="HBoxContainer/P1Panel"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="P2Panel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="P2Label" type="Label" parent="HBoxContainer/P2Panel"]
+layout_mode = 2
+text = "PLAYER 2"
+horizontal_alignment = 1
+
+[node name="P2PreviewCenter" type="CenterContainer" parent="HBoxContainer/P2Panel"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+
+[node name="P2Preview" type="AnimatedSprite2D" parent="HBoxContainer/P2Panel/P2PreviewCenter"]
+scale = Vector2(3, 3)
+
+[node name="P2Name" type="Label" parent="HBoxContainer/P2Panel"]
+layout_mode = 2
+text = "BLITZ"
+horizontal_alignment = 1
+
+[node name="AIToggle" type="CheckButton" parent="HBoxContainer/P2Panel"]
+layout_mode = 2
+text = "CPU"
+button_pressed = true
+
+[node name="P2Ready" type="Label" parent="HBoxContainer/P2Panel"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+
+[node name="Controls" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -40.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "P1: A/D + U to confirm  |  P2: Arrows + Numpad4 to confirm"
+horizontal_alignment = 1
